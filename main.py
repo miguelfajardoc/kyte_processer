@@ -34,7 +34,7 @@ def main():
     #TODO: Validate if is a valid kyte message or look for the last kyte message
     url = extract_url(last_message)
     data = extract_data(requests.get(url))
-    #print(url)
+    print(url)
     main_file_id = "1va3pv0Lu-AoHhTUMG-A58Dd99BrGoVeDNp8naYRTEjU"  #TODO "save id in ENV"
     new_name = f"{datetime.now().strftime("%d/%m")} ventas"
     new_file = google_utils.duplicate_file(credentials, main_file_id, new_name)  #TODO if exist, delete the old one

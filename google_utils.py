@@ -45,8 +45,29 @@ def duplicate_file(credentials, id, new_name="default"):
         'name': new_name
     }
     service = build("drive", "v3", credentials=credentials)
+    files = search_file(service, new_name)
+    if files != None:
+        for file in files:
+            print(f"Eliminando archivo: {file['name']} (ID: {file['id']})")
+            service.files().delete(fileId=file["id"]).execute()
 
     return service.files().copy(fileId=id, body=body).execute()
+
+def search_file(service, file_name):
+    query = f"name = '{file_name}' and trashed = false"
+    results = service.files().list(
+        q=query,
+        spaces="drive",
+        fields="files(id, name)",
+        pageSize=10
+    ).execute()
+
+    files = results.get("files", [])
+
+    if not files:
+        return None
+    else:
+        return files
 
 def add_user_writer_permission(credentials, id, email):
     service = build("drive", "v3", credentials=credentials)
@@ -54,7 +75,7 @@ def add_user_writer_permission(credentials, id, email):
       fileId=id,
       body={'type': 'user', 'role': 'writer', 'emailAddress': email},
       fields='id',
-      sendNotificationEmail=True
+      sendNotificationEmail=False
     ).execute()
 
 def insert_data_in_sheet(credentials, id, data, destination):
@@ -62,6 +83,6 @@ def insert_data_in_sheet(credentials, id, data, destination):
     return service_sheet.spreadsheets().values().update(
       spreadsheetId=id,
       range=destination,
-      valueInputOption="RAW",
+      valueInputOption="USER_ENTERED",
       body={'values': data}
     ).execute()
