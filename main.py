@@ -1,19 +1,9 @@
-import os.path
-import base64
-import quopri
-import re
 import requests
-import csv
-import io
 import google_utils
 
 from kyte_process import extract_url, extract_data
 
 from datetime import datetime
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 
@@ -26,7 +16,7 @@ def main():
   """Shows basic usage of the Gmail API.
   Lists the user's Gmail labels.
   """
-
+  google_utils.get_credentials_from_env_variables()
   credentials = google_utils.auth_google(SCOPES)
 
   try:

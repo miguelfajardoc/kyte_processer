@@ -1,11 +1,11 @@
 import os.path
+import json
+from dotenv import load_dotenv
 
-from datetime import datetime
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
 
 
 def auth_google(scopes):
@@ -85,3 +85,22 @@ def insert_data_in_sheet(credentials, id, data, destination):
       valueInputOption="USER_ENTERED",
       body={'values': data}
     ).execute()
+
+def get_credentials_from_env_variables():
+    load_dotenv()
+
+    credentials = {
+        "web": {
+            "client_id": os.getenv("CLIENT_ID"),
+            "project_id": os.getenv("PROJECT_ID"),
+            "auth_uri": os.getenv("AUTH_URI"),
+            "token_uri": os.getenv("TOKEN_URI"),
+            "auth_provider_x509_cert_url": os.getenv("AUTH_PROVIDER_CERT_URL"),
+            "client_secret": os.getenv("CLIENT_SECRET"),
+        }
+    }
+        # Load credentials from the temporary file
+    with open("credentials.json", "w") as f:
+        json.dump(credentials, f, indent=4)
+
+    return credentials
