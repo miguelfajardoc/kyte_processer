@@ -37,7 +37,7 @@ def main():
     print(url)
     main_file_id = "1va3pv0Lu-AoHhTUMG-A58Dd99BrGoVeDNp8naYRTEjU"  #TODO "save id in ENV"
     new_name = f"{datetime.now().strftime("%d/%m")} ventas"
-    new_file = google_utils.duplicate_file(credentials, main_file_id, new_name)  #TODO if exist, delete the old one
+    new_file = google_utils.duplicate_file(credentials, main_file_id, new_name)
     email = "miky116@gmail.com" #TODO Environment
     google_utils.add_user_writer_permission(credentials, new_file["id"], email)
     destination = "Data!A1" #TODO ENV
