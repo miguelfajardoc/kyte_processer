@@ -68,14 +68,15 @@ def search_file(service, file_name):
     else:
         return files
 
-def add_user_writer_permission(credentials, id, email):
+def add_user_writer_permission(credentials, id, emails):
     service = build("drive", "v3", credentials=credentials)
-    service.permissions().create(
-      fileId=id,
-      body={'type': 'user', 'role': 'writer', 'emailAddress': email},
-      fields='id',
-      sendNotificationEmail=False
-    ).execute()
+    for email in emails:
+        service.permissions().create(
+        fileId=id,
+        body={'type': 'user', 'role': 'writer', 'emailAddress': email},
+        fields='id',
+        sendNotificationEmail=os.getenv("SEND_NOTIF_EMAIL")
+        ).execute()
 
 def insert_data_in_sheet(credentials, id, data, destination):
     service_sheet = build("sheets", "v4", credentials=credentials)
@@ -104,3 +105,21 @@ def get_credentials_from_env_variables():
         json.dump(credentials, f, indent=4)
 
     return credentials
+
+def get_token_from_env_variables():
+    load_dotenv()
+
+    token = {
+        "token": os.getenv("TOKEN"),
+        "refresh_token": os.getenv("REFRESH_TOKEN"),
+        "token_uri": os.getenv("TOKEN_URI"),
+        "client_id": os.getenv("CLIENT_ID"),
+        "client_secret": os.getenv("CLIENT_SECRET"),
+        "scopes": os.getenv("SCOPES"),
+        "universe_domain": os.getenv("UNIVERSE_DOMAIN"),
+        "account": os.getenv("ACCOUNT"),
+        "expiry": os.getenv("EXPIRY")
+    }
+
+    with open("token.json", "w") as f:
+        json.dump(token, f, indent=4)

@@ -1,5 +1,8 @@
 __pycache__/
 *.py[cod]
 token.json
+token*
 credentials.json
 mi_entorno
+.env
+_credentials.json
