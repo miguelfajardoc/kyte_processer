@@ -11,15 +11,19 @@ from googleapiclient.discovery import build
 def auth_google(scopes):
     creds = None
     if os.path.exists("token.json"):
+        print("true!")
         creds = Credentials.from_authorized_user_file("token.json", scopes)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
+        print("Not credentials or invalid credentials!")
         if creds and creds.expired and creds.refresh_token:
+            print("Refreshing credentials..")
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 "credentials.json", scopes
             )
+            print("try to run local for credentials..")
             creds = flow.run_local_server(port=8080, access_type='offline', prompt='consent')
         with open("token.json", "w") as token:
             token.write(creds.to_json())

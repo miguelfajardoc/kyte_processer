@@ -33,6 +33,7 @@ def main():
     new_name = f"{datetime.now().strftime("%d/%m")} ventas"
     new_file = google_utils.duplicate_file(credentials, main_file_id, new_name)
     emails = os.getenv("PERMISSION_EMAILS")
+    emails = emails.split(', ') if emails else print(f'Invalid emails')
     google_utils.add_user_writer_permission(credentials, new_file["id"], emails)
     destination = "Data!A1" #TODO ENV
     #print(data)
