@@ -19,8 +19,7 @@ def main():
   Lists the user's Gmail labels.
   """
   google_utils.get_credentials_from_env_variables()
-  if os.getenv("CREDS_FROM_TOKEN"):
-    google_utils.get_token_from_env_variables()
+  google_utils.get_token_from_env_variables()
 
   time.sleep(5)
   credentials = google_utils.auth_google(SCOPES)
