@@ -107,7 +107,7 @@ def get_credentials_from_env_variables():
         # Load credentials from the temporary file
     with open("credentials.json", "w") as f:
         json.dump(credentials, f, indent=4)
-
+    print("credentials.json created!")
     return credentials
 
 def get_token_from_env_variables():
@@ -127,3 +127,4 @@ def get_token_from_env_variables():
 
     with open("token.json", "w") as f:
         json.dump(token, f, indent=4)
+    print("token.json created!")

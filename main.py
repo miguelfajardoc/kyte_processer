@@ -1,6 +1,7 @@
 import requests
 import google_utils
 import os.path
+import time
 
 from kyte_process import extract_url, extract_data
 
@@ -21,6 +22,7 @@ def main():
   if os.getenv("CREDS_FROM_TOKEN"):
     google_utils.get_token_from_env_variables()
 
+  time.sleep(5)
   credentials = google_utils.auth_google(SCOPES)
 
   try:
