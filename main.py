@@ -21,7 +21,6 @@ def main():
   google_utils.get_credentials_from_env_variables()
   google_utils.get_token_from_env_variables()
 
-  time.sleep(5)
   credentials = google_utils.auth_google(SCOPES)
 
   try:

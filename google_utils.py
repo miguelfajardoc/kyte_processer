@@ -20,13 +20,19 @@ def auth_google(scopes):
             print("Refreshing credentials..")
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                "credentials.json", scopes
-            )
-            print("try to run local for credentials..")
-            creds = flow.run_local_server(port=8080, access_type='offline', prompt='consent')
-        with open("token.json", "w") as token:
-            token.write(creds.to_json())
+            #flow = InstalledAppFlow.from_client_secrets_file(
+            #    "credentials.json", scopes
+            #)
+            #print("try to run local for credentials..")
+            with open("token.json") as f:
+                token_info = json.load(f)
+                print("print token info:")
+                print(token_info)
+                print("end token info")
+                creds = Credentials.from_authorized_user_info(token_info, scopes)
+            #creds = flow.run_local_server(port=8080, access_type='offline', prompt='consent')
+        #with open("token.json", "w") as token:
+            #token.write(creds.to_json())
     return creds
 
 def get_last_gmail(credentials):
