@@ -10,6 +10,21 @@ jobs:
   run-script:
     runs-on: ubuntu-latest
 
+    env:
+      CLIENT_ID: ${{ vars.CLIENT_ID }}
+      PROJECT_ID: ${{ vars.PROJECT_ID }}
+      TOKEN_URI: ${{ vars.TOKEN_URI }}
+      AUTH_PROVIDER_CERT_URL: ${{ vars.AUTH_PROVIDER_CERT_URL }}
+      CLIENT_SECRET: ${{ vars.CLIENT_SECRET }}
+      TOKEN: ${{ vars.TOKEN }}
+      REFRESH_TOKEN: ${{ vars.REFRESH_TOKEN }}
+      SCOPES: ${{ vars.SCOPES }}
+      UNIVERSE_DOMAIN: ${{ vars.UNIVERSE_DOMAIN }}
+      EXPIRY: ${{ vars.EXPIRY }}
+      CREDS_FROM_TOKEN: ${{ vars.CREDS_FROM_TOKEN }}
+      PERMISSION_EMAILS: ${{ vars.PERMISSION_EMAILS }}
+      SEND_NOTIF_EMAIL: ${{ vars.SEND_NOTIF_EMAIL }}
+      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
