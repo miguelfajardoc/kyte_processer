@@ -114,6 +114,8 @@ def get_credentials_from_env_variables():
     with open("credentials.json", "w") as f:
         json.dump(credentials, f, indent=4)
     print("credentials.json created!")
+    print(credentials)
+    print("end of credentials")
     return credentials
 
 def get_token_from_env_variables():
